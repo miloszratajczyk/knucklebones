@@ -6,7 +6,7 @@ class Game {
   Player firstPlayer = Player();
   Player secondPlayer = Player();
 
-  bool turn = false;
+  bool turn = true;
   int diceNumber = 1;
 
   final _rnd = Random();

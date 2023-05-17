@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
+
+import '../style/constants.dart';
 
 class Vault extends StatefulWidget {
   const Vault({
@@ -13,26 +16,13 @@ class Vault extends StatefulWidget {
 
 class _VaultState extends State<Vault> with TickerProviderStateMixin {
   final List<Image> frames = [];
-  double _animationProgress = 0.0;
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 1),
-    vsync: this,
-  );
+  late final AnimationController _controller;
 
-  void spawnDice() {
-    setState(() {
-      _animationProgress = 1.0;
-    });
-    _controller.forward();
-  }
+  final ValueNotifier<int> _spawnCount = ValueNotifier(0);
 
-  int get frameId {
-    if (_controller.value < 0.6) {
-      return (_controller.value * 20).toInt() - 2;
-    } else {
-      return 20 - (_controller.value * 20).toInt();
-    }
-  }
+  int get _frameId => _controller.value < 0.6
+      ? math.max(0, (_controller.value * 20).toInt() - 2)
+      : 20 - (_controller.value * 20).toInt();
 
   @override
   void initState() {
@@ -46,7 +36,14 @@ class _VaultState extends State<Vault> with TickerProviderStateMixin {
         ),
       );
     }
-    spawnDice();
+    _controller = AnimationController(
+      duration: durationXL,
+      vsync: this,
+    );
+    _spawnCount.addListener(() {
+      _controller.reset();
+      _controller.forward();
+    });
   }
 
   @override
@@ -58,6 +55,12 @@ class _VaultState extends State<Vault> with TickerProviderStateMixin {
   }
 
   @override
+  void didUpdateWidget(covariant Vault oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _spawnCount.value++;
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -65,39 +68,38 @@ class _VaultState extends State<Vault> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
+    return GestureDetector(
+      onTap: () => _controller.reset(),
       child: Stack(
+        alignment: Alignment.center,
         children: [
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (BuildContext context, Widget? child) {
-              if ((_controller.value * 10).toInt() > 0) {
-                return AspectRatio(
-                  aspectRatio: 1,
-                  child: frames[frameId],
-                );
-              } else {
-                return AspectRatio(
-                  aspectRatio: 1,
-                  child: frames[0],
-                );
-              }
-            },
+          AspectRatio(
+            aspectRatio: 1,
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (_, __) => frames[_frameId],
+            ),
           ),
-          AnimatedRotation(
-            turns: _animationProgress,
-            duration: const Duration(seconds: 1),
-            curve: Curves.decelerate,
-            child: AnimatedScale(
-              scale: _animationProgress * 0.5,
-              duration: const Duration(seconds: 1),
-              curve: Curves.easeInOutBack,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: Image(
+          AnimatedSwitcher(
+            duration: durationXL,
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return ScaleTransition(
+                scale: animation,
+                child: RotationTransition(
+                  turns: animation,
+                  child: child,
+                ),
+              );
+            },
+            child: Container(
+              key: ValueKey<int>(_spawnCount.value),
+              width: 64,
+              height: 64,
+              decoration: BoxDecoration(
+                image: DecorationImage(
                   image: AssetImage(
-                      'assets/images/dice/dice${widget.diceNumber}.png'),
+                    'assets/images/dice/dice${widget.diceNumber}.png',
+                  ),
                   fit: BoxFit.fill,
                   filterQuality: FilterQuality.none,
                 ),

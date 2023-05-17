@@ -21,13 +21,17 @@ class _MultiplayerScreenState extends State<MultiplayerScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Knucklebones"),
+        centerTitle: true,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
             flex: 2,
             child: AnimatedOpacity(
-              duration: Duration(seconds: 1),
+              duration: durationL,
               opacity: game.isPlayersTurn(2) ? 1.0 : 0.5,
               child: Center(
                 child: Board(
@@ -35,7 +39,6 @@ class _MultiplayerScreenState extends State<MultiplayerScreen> {
                   stacks: game.secondPlayer.stacks,
                   onPressed: (columnId) {
                     game.handleClick(2, columnId);
-                    print(columnId);
                     setState(() {});
                   },
                 ),
@@ -74,14 +77,13 @@ class _MultiplayerScreenState extends State<MultiplayerScreen> {
           Expanded(
             flex: 2,
             child: AnimatedOpacity(
-              duration: Duration(seconds: 1),
+              duration: durationL,
               opacity: game.isPlayersTurn(1) ? 1.0 : 0.5,
               child: Center(
                 child: Board(
                   stacks: game.firstPlayer.stacks,
                   onPressed: (columnId) {
                     game.handleClick(1, columnId);
-                    print(columnId);
                     setState(() {});
                   },
                 ),

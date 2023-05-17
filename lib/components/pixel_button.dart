@@ -39,17 +39,15 @@ class _PixelButtonState extends State<PixelButton> {
           onTap: widget.onPressed,
           child: Container(
             decoration: BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage(_image),
-              fit: BoxFit.contain,
-              filterQuality: FilterQuality.none,
-            )),
-            child: Padding(
-              padding: _buttonPadding,
-              child: Center(
-                child: widget.child,
+              image: DecorationImage(
+                image: AssetImage(_image),
+                fit: BoxFit.contain,
+                filterQuality: FilterQuality.none,
               ),
             ),
+            padding: _buttonPadding,
+            alignment: Alignment.center,
+            child: widget.child,
           ),
         ),
       ),
