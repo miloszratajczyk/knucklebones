@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:knucklebones/style/constants.dart';
 
 class DiceSlot extends StatefulWidget {
   const DiceSlot({

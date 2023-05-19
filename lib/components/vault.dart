@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
 
 import '../style/constants.dart';
 
@@ -15,7 +16,7 @@ class Vault extends StatefulWidget {
 }
 
 class _VaultState extends State<Vault> with TickerProviderStateMixin {
-  final List<Image> frames = [];
+  final List<Image> _frames = [];
   late final AnimationController _controller;
 
   final ValueNotifier<int> _spawnCount = ValueNotifier(0);
@@ -28,7 +29,7 @@ class _VaultState extends State<Vault> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     for (int i = 1; i <= 10; i++) {
-      frames.add(
+      _frames.add(
         Image.asset(
           'assets/images/vault/vault$i.png',
           fit: BoxFit.fill,
@@ -49,7 +50,7 @@ class _VaultState extends State<Vault> with TickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    for (var frame in frames) {
+    for (var frame in _frames) {
       precacheImage(frame.image, context);
     }
   }
@@ -77,7 +78,7 @@ class _VaultState extends State<Vault> with TickerProviderStateMixin {
             aspectRatio: 1,
             child: AnimatedBuilder(
               animation: _controller,
-              builder: (_, __) => frames[_frameId],
+              builder: (_, __) => _frames[_frameId],
             ),
           ),
           AnimatedSwitcher(

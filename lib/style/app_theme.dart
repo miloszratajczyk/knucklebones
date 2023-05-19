@@ -58,15 +58,15 @@ class AppTheme {
     ),
     labelLarge: TextStyle(
       fontFamily: 'Silkscreen-Regular',
-      fontSize: 14,
+      fontSize: 18,
     ),
     labelMedium: TextStyle(
       fontFamily: 'Silkscreen-Regular',
-      fontSize: 12,
+      fontSize: 16,
     ),
     labelSmall: TextStyle(
       fontFamily: 'Silkscreen-Regular',
-      fontSize: 11,
+      fontSize: 12,
     ),
     bodyLarge: TextStyle(
       fontFamily: 'Silkscreen-Regular',

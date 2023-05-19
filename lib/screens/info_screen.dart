@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:knucklebones/screens/multiplayer_screen/multiplayer_screen.dart';
-import 'package:knucklebones/components/pixel_button.dart';
-import 'package:knucklebones/style/constants.dart';
+import '../components/pixel_button.dart';
+import '../style/constants.dart';
 
 class InfoScreen extends StatelessWidget {
   const InfoScreen({Key? key}) : super(key: key);
@@ -29,7 +28,7 @@ class InfoScreen extends StatelessWidget {
             child: Padding(
               padding: paddingL,
               child: Text(
-                "The vault shoots up a dice with a random number. Players take turns placing the dices in one of their three stacks. If a dice with the same number is in the parallel stack of your enemy, the enemy's dice gets removed, but if it's in your stack the value is multiplied by the number of same dices. Game ends when no player can make a move and the winner is the person with the highest score.",
+                "The vault shoots up a dice with a random number. Players take turns placing the dices in one of their three stacks. If a dice with the same number is in the stack of your enemy, the enemy's dice gets removed, but if it's in your stack its value is multiplied by the number of occurrences in the stack. Game ends when no player can make a move and the winner is the person with the highest score.",
                 style: textTheme.labelMedium,
                 textAlign: TextAlign.center,
               ),

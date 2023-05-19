@@ -30,13 +30,9 @@ class _PixelButtonState extends State<PixelButton> {
       child: AspectRatio(
         aspectRatio: 4,
         child: GestureDetector(
-          onTapDown: (_) => setState(() {
-            _isPressed = true;
-          }),
-          onTapUp: (_) => setState(() {
-            _isPressed = false;
-          }),
           onTap: widget.onPressed,
+          onTapDown: (_) => setState(() => _isPressed = true),
+          onTapUp: (_) => setState(() => _isPressed = false),
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:knucklebones/screens/info_screen/info_screen.dart';
+import 'info_screen.dart';
 
-import 'package:knucklebones/screens/multiplayer_screen/multiplayer_screen.dart';
-import 'package:knucklebones/components/pixel_button.dart';
-import 'package:knucklebones/style/constants.dart';
+import '../components/pixel_button.dart';
+import '../style/constants.dart';
+
+import 'game_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -29,7 +30,15 @@ class MenuScreen extends StatelessWidget {
             child: Padding(
               padding: paddingM,
               child: PixelButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const GameScreen(isMultiplayer: false),
+                    ),
+                  );
+                },
                 child: const Text(
                   "Singleplayer",
                   textAlign: TextAlign.center,
@@ -49,7 +58,9 @@ class MenuScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const MultiplayerScreen()),
+                      builder: (context) =>
+                          const GameScreen(isMultiplayer: true),
+                    ),
                   );
                 },
               ),

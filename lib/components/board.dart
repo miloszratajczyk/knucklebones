@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:knucklebones/components/dice_slot.dart';
-import 'package:knucklebones/core/utils.dart';
-
-import 'dart:math' as math;
+import 'dice_slot.dart';
+import '../core/utils.dart';
 
 class Board extends StatefulWidget {
   const Board({
