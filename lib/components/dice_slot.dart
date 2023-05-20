@@ -15,10 +15,9 @@ class DiceSlot extends StatefulWidget {
 }
 
 class _DiceSlotState extends State<DiceSlot> {
-  /// Returns the image for given number and occurrences
   AssetImage get _image {
     if (widget.number == 0) {
-      return AssetImage(
+      return const AssetImage(
         'assets/images/no_dice.png',
       );
     }
@@ -37,15 +36,6 @@ class _DiceSlotState extends State<DiceSlot> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        // SizedBox(
-        //   width: 75,
-        //   height: 75,
-        //   child: Image.asset(
-        //     'assets/images/dice_slot.png',
-        //     fit: BoxFit.fill,
-        //     filterQuality: FilterQuality.none,
-        //   ),
-        // ),
         Container(
           width: 75,
           height: 75,
@@ -57,31 +47,6 @@ class _DiceSlotState extends State<DiceSlot> {
             ),
           ),
         ),
-        // SizedBox(
-        //   width: 64,
-        //   height: 64,
-        //   child: AnimatedOpacity(
-        //     opacity: widget.number == 0 ? 0.0 : 1.0,
-        //     duration: const Duration(seconds: 1),
-        //     curve: Curves.ease,
-        //     child: widget.number == 0 ? Container() : _image,
-        //   ),
-        // ),
-
-        // if (widget.number != 0)
-        //   AnimatedContainer(
-        //     width: 64,
-        //     height: 64,
-        //     decoration: BoxDecoration(
-        //       image: DecorationImage(
-        //         image: _image,
-        //         fit: BoxFit.fill,
-        //         filterQuality: FilterQuality.none,
-        //       ),
-        //     ),
-        //     duration: const Duration(seconds: 1),
-        //     curve: Curves.ease,
-        //   ),
         AnimatedSwitcher(
           duration: const Duration(seconds: 1),
           transitionBuilder: (Widget child, Animation<double> animation) {
@@ -93,11 +58,6 @@ class _DiceSlotState extends State<DiceSlot> {
               ),
             );
           },
-          // child: Text(
-          //   '${widget.number}',
-          //   key: ValueKey<int>(widget.number),
-          //   style: Theme.of(context).textTheme.headlineMedium,
-          // ),
           child: Container(
             key: ValueKey<String>("${widget.number}${widget.occurrences}"),
             width: 64,

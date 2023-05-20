@@ -1,12 +1,13 @@
 import 'dart:math';
 
-import 'package:knucklebones/core/utils.dart';
+import '../core/utils.dart';
 
 import 'player.dart';
 
 abstract class Game {
   Game({required this.setState});
 
+  // Used to call state rebuild when necessary
   final Function() setState;
 
   Player firstPlayer = Player();
@@ -29,9 +30,11 @@ abstract class Game {
 
   final _rng = Random();
 
+  /// Checks if given player can make a turn
   bool isPlayersTurn(int id) => (id == 1 && _turn) || (id == 2 && !_turn);
+
+  /// Randomizes a new dice number
   void spawnDice() {
-    print(diceNumber);
     var randomNumber = _rng.nextInt(6) + 1;
     if (randomNumber == diceNumber) {
       spawnDice();
@@ -40,9 +43,13 @@ abstract class Game {
     }
   }
 
+  /// Changes turn to next
   void nextTurn() => _turn = !_turn;
+
+  /// Changes turn to random
   void randomizeTurn() => _turn = _rng.nextBool();
-  void start() => spawnDice();
+
+  /// Sets the winner
   void end() {
     final score1 = firstPlayer.score;
     final score2 = secondPlayer.score;
@@ -55,6 +62,7 @@ abstract class Game {
     }
   }
 
+  /// Returns text for game over panel
   String get winnerText => switch (winner) {
         1 => "Player 1 won",
         2 => "Player 2 won",
@@ -67,9 +75,12 @@ abstract class Game {
     final enemy = playerId == 2 ? firstPlayer : secondPlayer;
     if (!isPlayersTurn(playerId)) return false;
     if (!player.canMove(columnId)) return false;
+
+    -"Player $playerId turn";
     player.move(columnId, diceNumber);
     enemy.remove(columnId, diceNumber);
     spawnDice();
+
     if (!enemy.isDone) {
       nextTurn();
     } else if (player.isDone) {

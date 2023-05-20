@@ -34,8 +34,9 @@ class MenuScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          const GameScreen(isMultiplayer: false),
+                      builder: (context) {
+                        return const GameScreen(isMultiplayer: false);
+                      },
                     ),
                   );
                 },

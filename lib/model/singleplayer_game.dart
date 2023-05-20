@@ -1,5 +1,5 @@
-import 'package:knucklebones/core/utils.dart';
-import 'package:knucklebones/style/constants.dart';
+import '../core/utils.dart';
+import '../style/constants.dart';
 
 import 'game.dart';
 
@@ -14,12 +14,15 @@ class SingleplayerGame extends Game {
     return toRebuild;
   }
 
+  /// Makes a move when it's computer's turn
   void handleDice() async {
     final player = firstPlayer;
     final enemy = secondPlayer;
 
     if (!player.isDone && isPlayersTurn(1)) return;
     await Future.delayed(durationL * 2);
+
+    -"Computer takes turn";
 
     var moveQuality = [
       for (int i = 0; i < 3; i++)
@@ -47,10 +50,11 @@ class SingleplayerGame extends Game {
     if (!player.isDone) {
       nextTurn();
     } else {
-      if (enemy.isDone)
+      if (enemy.isDone) {
         end();
-      else
+      } else {
         handleDice();
+      }
     }
     setState();
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dice_slot.dart';
+
 import '../core/utils.dart';
+import 'dice_slot.dart';
 
 class Board extends StatefulWidget {
   const Board({

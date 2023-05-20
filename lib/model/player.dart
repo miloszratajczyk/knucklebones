@@ -1,6 +1,7 @@
 import '../core/utils.dart';
 
 class Player {
+  /// Stacks containing dice numbers
   List<List<int>> stacks = [
     [0, 0, 0],
     [0, 0, 0],

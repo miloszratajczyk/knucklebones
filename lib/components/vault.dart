@@ -18,7 +18,6 @@ class Vault extends StatefulWidget {
 class _VaultState extends State<Vault> with TickerProviderStateMixin {
   final List<Image> _frames = [];
   late final AnimationController _controller;
-
   final ValueNotifier<int> _spawnCount = ValueNotifier(0);
 
   int get _frameId => _controller.value < 0.6
@@ -69,46 +68,43 @@ class _VaultState extends State<Vault> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _controller.reset(),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          AspectRatio(
-            aspectRatio: 1,
-            child: AnimatedBuilder(
-              animation: _controller,
-              builder: (_, __) => _frames[_frameId],
-            ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        AspectRatio(
+          aspectRatio: 1,
+          child: AnimatedBuilder(
+            animation: _controller,
+            builder: (_, __) => _frames[_frameId],
           ),
-          AnimatedSwitcher(
-            duration: durationXL,
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return ScaleTransition(
-                scale: animation,
-                child: RotationTransition(
-                  turns: animation,
-                  child: child,
+        ),
+        AnimatedSwitcher(
+          duration: durationXL,
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return ScaleTransition(
+              scale: animation,
+              child: RotationTransition(
+                turns: animation,
+                child: child,
+              ),
+            );
+          },
+          child: Container(
+            key: ValueKey<int>(_spawnCount.value),
+            width: 64,
+            height: 64,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/images/dice/dice${widget.diceNumber}.png',
                 ),
-              );
-            },
-            child: Container(
-              key: ValueKey<int>(_spawnCount.value),
-              width: 64,
-              height: 64,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/images/dice/dice${widget.diceNumber}.png',
-                  ),
-                  fit: BoxFit.fill,
-                  filterQuality: FilterQuality.none,
-                ),
+                fit: BoxFit.fill,
+                filterQuality: FilterQuality.none,
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:knucklebones/model/multiplayer_game.dart';
-import 'package:knucklebones/model/singleplayer_game.dart';
+import '../core/utils.dart';
+import '../model/multiplayer_game.dart';
+import '../model/singleplayer_game.dart';
 import '../components/board.dart';
 
 import '../components/pixel_button.dart';
@@ -39,7 +40,6 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Knucklebones"),
@@ -59,14 +59,14 @@ class _GameScreenState extends State<GameScreen> {
                   alignToTop: false,
                   stacks: _game.secondPlayer.stacks,
                   onPressed: (columnId) {
-                    if (_game.handleClick(2, columnId)) setState(() {});
+                    _game.handleClick(2, columnId) >> () => setState(() {});
                   },
                 ),
               ),
             ),
           ),
-          if (_game.winner == 0) _buildVaultPanel(textTheme),
-          if (_game.winner != 0) _buildGameOverPanel(textTheme),
+          if (_game.winner == 0) _buildVaultPanel(),
+          if (_game.winner != 0) _buildGameOverPanel(),
           Expanded(
             flex: 2,
             child: AnimatedOpacity(
@@ -77,7 +77,7 @@ class _GameScreenState extends State<GameScreen> {
                 child: Board(
                   stacks: _game.firstPlayer.stacks,
                   onPressed: (columnId) {
-                    if (_game.handleClick(1, columnId)) setState(() {});
+                    _game.handleClick(1, columnId) >> () => setState(() {});
                   },
                 ),
               ),
@@ -88,7 +88,8 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Flexible _buildVaultPanel(TextTheme textTheme) {
+  Flexible _buildVaultPanel() {
+    final textTheme = Theme.of(context).textTheme;
     return Flexible(
       child: Row(
         children: [
@@ -124,7 +125,8 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Expanded _buildGameOverPanel(TextTheme textTheme) {
+  Expanded _buildGameOverPanel() {
+    final textTheme = Theme.of(context).textTheme;
     return Expanded(
       child: Column(
         children: [

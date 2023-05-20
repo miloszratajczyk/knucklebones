@@ -38,9 +38,7 @@ class InfoScreen extends StatelessWidget {
             child: Padding(
               padding: paddingM,
               child: PixelButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                onPressed: () => Navigator.pop(context),
                 child: const Text(
                   "GO BACK",
                   textAlign: TextAlign.center,

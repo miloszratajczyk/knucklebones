@@ -1,0 +1,144 @@
+@startuml
+set namespaceSeparator ::
+
+class "knucklebones::components::board.dart::Board" {
+  +List<List<int>> stacks
+  +void Function(int) onPressed
+  +bool alignToTop
+  +State<Board> createState()
+}
+
+
+class "knucklebones::components::board.dart::_BoardState" {
+  +Widget build()
+}
+
+class "knucklebones::components::dice_slot.dart::DiceSlot" {
+  +int number
+  +int occurrences
+  +State<DiceSlot> createState()
+}
+
+
+class "knucklebones::components::dice_slot.dart::_DiceSlotState" {
+  -AssetImage _image
+  +Widget build()
+}
+
+
+class "knucklebones::components::pixel_button.dart::PixelButton" {
+  +Widget child
+  +dynamic Function() onPressed
+  +State<PixelButton> createState()
+}
+
+
+class "knucklebones::components::pixel_button.dart::_PixelButtonState" {
+  -EdgeInsets _buttonPadding
+  -bool _isPressed
+  -dynamic _image
+  +Widget build()
+}
+
+
+class "knucklebones::components::vault.dart::Vault" {
+  +int diceNumber
+  +State<Vault> createState()
+}
+
+
+class "knucklebones::components::vault.dart::_VaultState" {
+  -List<Image> _frames
+  -AnimationController _controller
+  -ValueNotifier<int> _spawnCount
+  -int _frameId
+  +void initState()
+  +void didChangeDependencies()
+  +void didUpdateWidget()
+  +void dispose()
+  +Widget build()
+}
+
+
+class "knucklebones::main.dart::MyApp" {
+  +Widget build()
+}
+
+
+abstract class "knucklebones::model::game.dart::Game" {
+  +dynamic Function() setState
+  +Player firstPlayer
+  +Player secondPlayer
+  +int winner
+  -bool _turn
+  +int diceNumber
+  -Random _rng
+  +String winnerText
+  +bool isPlayersTurn()
+  +void spawnDice()
+  +void nextTurn()
+  +void randomizeTurn()
+  +void end()
+  +dynamic ()
+  +bool handleClick()
+}
+
+
+class "knucklebones::model::multiplayer_game.dart::MultiplayerGame" {
+}
+
+
+class "knucklebones::model::player.dart::Player" {
+  +List<List<int>> stacks
+  +int score
+  +bool isDone
+  +bool canMove()
+  +void move()
+  +void remove()
+}
+
+class "knucklebones::model::singleplayer_game.dart::SingleplayerGame" {
+  +bool handleClick()
+  +void handleDice()
+}
+
+
+class "knucklebones::screens::game_screen.dart::GameScreen" {
+  +bool isMultiplayer
+  +State<GameScreen> createState()
+}
+
+
+class "knucklebones::screens::game_screen.dart::_GameScreenState" {
+  -Game _game
+  +void initState()
+  -void _setupGame()
+  +Widget build()
+  -Flexible _buildVaultPanel()
+  -Expanded _buildGameOverPanel()
+}
+
+
+class "knucklebones::screens::info_screen.dart::InfoScreen" {
+  +Widget build()
+}
+
+
+class "knucklebones::screens::menu_screen.dart::MenuScreen" {
+  +Widget build()
+}
+
+
+class "knucklebones::style::app_theme.dart::AppTheme" {
+  {static} +Color seedColor
+  {static} +ThemeData lightTheme
+  {static} +ThemeData darkTheme
+  {static} +TextTheme textTheme
+}
+
+"knucklebones::screens::game_screen.dart::_GameScreenState" o-- "knucklebones::model::game.dart::Game"
+"knucklebones::model::game.dart::Game" <|-- "knucklebones::model::multiplayer_game.dart::MultiplayerGame"
+"knucklebones::model::game.dart::Game" <|-- "knucklebones::model::singleplayer_game.dart::SingleplayerGame"
+"knucklebones::model::game.dart::Game" o-- "knucklebones::model::player.dart::Player"
+
+@enduml

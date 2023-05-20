@@ -17,7 +17,6 @@ class PixelButton extends StatefulWidget {
 class _PixelButtonState extends State<PixelButton> {
   final _buttonPadding =
       const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0);
-
   bool _isPressed = false;
   get _image => _isPressed
       ? 'assets/images/pixel_button_pressed.png'
