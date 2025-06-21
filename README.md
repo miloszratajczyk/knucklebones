@@ -1,16 +1,10 @@
 # knucklebones
 
-A new Flutter project.
+**Knucklebones is Flutter recreaton of a Cult of the Lamb minigame with the same name.**
 
-## Getting Started
+The game can be played vs the computer or vs another person on the same screen.
 
-This project is a starting point for a Flutter application.
+The vault shoots up a dice with a random number. Players take turns placing the dices in one of their three stacks. If a dice with the same number is in the stack of your enemy, the enemy's dice gets removed, but if it's in your stack its value is multiplied by the number of occurrences in the stack. Game ends when no player can make a move and the winner is the person with the highest score.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Screen 1](screens/screen1.png)
